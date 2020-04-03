@@ -7,5 +7,5 @@ import (
 )
 
 func Test_SayHello(t *testing.T) {
-	require.Equal(t, "hello!", sayHello())
+	require.Equal(t, "hello world!", sayHello())
 }
