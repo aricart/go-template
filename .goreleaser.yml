@@ -1,0 +1,47 @@
+project_name: go-template
+release:
+  draft: true
+  github:
+    owner: aricart
+    name: go-template
+  name_template: '{{.Tag}}'
+builds:
+  - main: main.go
+    binary: go-template
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+
+dist: build
+
+archives:
+  - id: "go-template.zip"
+    wrap_in_directory: false
+    name_template: '{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    format: zip
+    files:
+      - none*
+
+checksum:
+  name_template: '{{ .ProjectName }}-v{{ .Version }}-checksums.txt'
+
+snapshot:
+  name_template: 'dev'
+
+brews:
+  - name: go-template
+    folder: Formula
+    github:
+      owner: aricart
+      name: homebrew-tools
+    url_template: "https://github.com/aricart/go-template/releases/download/{{ .Tag }}/{{ .ProjectName }}-{{ .Os }}-{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}.zip"
+    homepage: "https://github.com/aricart/go-template"
+    description: "go-template description"
+    skip_upload: false
+    test: |
+      system "#{bin}/go-template --help"
+    install: |
+      bin.install "go-template"
